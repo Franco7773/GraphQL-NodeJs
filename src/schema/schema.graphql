@@ -1,0 +1,69 @@
+type Query {
+  "Students List"
+  students: [Student!]!
+
+  "Student Information"
+  student( id: ID! ): Student!
+
+  "Courses List"
+  courses: [Course!]!
+
+  "Course Information"
+  course( id: ID! ): Course!
+}
+
+type Mutation {
+  createCourse( course: CourseInput! ): Course!
+  updateCourse( course: CourseInput! ): Course!
+  deleteCourse( id: ID! ): ID!
+}
+
+input CourseInput {
+  id: ID,
+  title: String!,
+  description: String!,
+  classes: Int!,
+  time: Float!,
+  logo: String!,
+  level: Level=ALL,
+  path: String!,
+  teacher: String!,
+}
+
+"Student Information"
+type Student {
+  "Student Identifier"
+  id: ID!,
+  name: String!,
+  email: String!,
+  website: String,
+  courses: [Course!]!
+},
+
+type Course {
+  id: ID!,
+  title: String!,
+  description: String!,
+  classes: Int!,
+  time: Float!,
+  logo: String!,
+  level: Level!,
+  path: String!,
+  teacher: String!,
+  students: [Student],
+  reviews: [Review!]!
+}
+
+enum Level {
+  ALL
+  BEGINNER
+  INTERMEDIATE
+  EXPERT
+}
+
+type Review {
+  id: ID!,
+  name: String!,
+  points: Float!,
+  comment: String
+}
